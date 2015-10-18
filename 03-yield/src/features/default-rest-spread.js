@@ -36,4 +36,24 @@ export function es5() {
 }
 
 export function es6() {
+  function defaults(x=12){
+    return x
+  }
+
+  function rest(...x){
+    return x.join(',')
+  }
+
+  function spread(x){
+    function something(a, b, c = 0){
+        return a + b + c
+    }
+    return something(...x)
+  }
+
+  return {
+    defaults: defaults,
+    rest: rest,
+    spread: spread
+  }
 }
