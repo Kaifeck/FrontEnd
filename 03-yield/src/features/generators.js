@@ -19,7 +19,7 @@ export function es6(n) {
   function* counter(n){
     var index = 0
     while(index<n){
-      yield index+=1
+      yield index + 1;
     }
   }
 

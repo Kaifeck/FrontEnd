@@ -11,10 +11,13 @@ export function es5() {
 }
 
 export function es6() {
-	function d(spec){
-		var {x=0,y=0,z=0} = spec
-		return x+y+z
-	}
+  function defaults(spec) {
+      const {x = 0} = spec
+      const {y = 0} = spec
+      const {z = 0} = spec
 
-	return d
+    return x + y + z
+  }
+
+  return defaults
 }

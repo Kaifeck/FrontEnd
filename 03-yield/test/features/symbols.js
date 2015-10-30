@@ -8,6 +8,6 @@ export default function() {
 
   })
 
-  it.skip('should show symbols syntax and behavior in ES6', () => {
+  it('should show symbols syntax and behavior in ES6', () => {
   })
 }

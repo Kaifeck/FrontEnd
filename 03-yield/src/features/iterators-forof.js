@@ -10,4 +10,11 @@ export function es5() {
 }
 
 export function es6() {
+	const a = [1,2,3,4,5]
+	var sum = 0
+	for(var num of a)
+	{
+		sum += num
+	}
+	return sum
 }
