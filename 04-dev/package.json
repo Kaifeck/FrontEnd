@@ -1,0 +1,13 @@
+{
+  "name": "04-dev",
+  "version": "1.0.0",
+  "description": "Fourth assignment frontend development 1",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "author": "Hannes Moser <hannes@impossiblearts.com>",
+  "license": "MIT",
+  "devDependencies": {
+  }
+}
