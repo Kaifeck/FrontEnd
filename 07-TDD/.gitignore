@@ -10,3 +10,13 @@ node_modules/
 # build
 dist/
 
+# other files
+.gitattributes
+.nvmrc
+.yo-rc.json
+Gruntfile.js
+tdd.js
+package.json
+.eslintrc
+.editorconfig
+
