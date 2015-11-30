@@ -1,0 +1,17 @@
+<h1>Drivers</h1>
+<table class="table table-responsive table-condensed table-hover">
+  <thead>
+  <th>Name</th>
+  <th>Date of birth</th>
+  <th>Nationality</th>
+  </thead>
+  <tbody>
+  {{#each drivers}}
+    <tr>
+      <td>{{givenName}} {{familyName}}</td>
+      <td>{{dateOfBirth}}</td>
+      <td>{{nationality}}</td>
+    </tr>
+  {{/each}}
+  </tbody>
+</table>
