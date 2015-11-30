@@ -55,7 +55,7 @@ module.exports = function(grunt) {
             options.base.forEach(function(base) {
               middlewares.push(serveStatic(base))
             })
-            //middlewares.push(serveStatic(directory))
+            middlewares.push(serveStatic(directory))
             middlewares.push(function(req, res) {
               for (let file, i = 0; i < options.base.length; i++) {
                 file = options.base + "/index.html"
@@ -97,8 +97,14 @@ module.exports = function(grunt) {
           {
             expand: true,
             cwd: '<%= config.app %>',
+            src: ['icons/**/*'],
+            dest: '<%= config.dist %>'
+          },
+          {
+            expand: true,
+            cwd: '<%= config.app %>',
             src: ['images/**/*{.png,.gif,.jpg}'],
-            dest: '<%= config.dist %>/images'
+            dest: '<%= config.dist %>'
           }
         ]
       }
@@ -108,24 +114,21 @@ module.exports = function(grunt) {
       target: ['<%= config.app %>/scripts/*.js']
     },
 
-    less: {
+    sass: {
       dist: {
         options: {
-          rootpath: '.',
-          paths: ['<%= config.app %>'],
-          compress: true,
-          plugins: [
-            (new (require('less-plugin-autoprefix'))({
-              browsers: ["last 2 versions"]
-            })),
-            (new (require('less-plugin-clean-css'))({
-              advanced: true
-            }))
-          ]
+          style: 'compressed',
+          unixNewlines: true
         },
-        files: {
-          '<%= config.dist %>/styles/app.css': '<%= config.app %>/styles/app.less'
-        }
+        files: [
+          {
+            expand: true,
+            cwd: '<%= config.app %>/styles',
+            src: ['*.scss'],
+            dest: '<%= config.dist %>/styles/',
+            ext: '.css'
+          }
+        ]
       }
     },
 
@@ -135,6 +138,10 @@ module.exports = function(grunt) {
       },
       documents: {
         files: ['<%= config.app %>/**/*.html'],
+        tasks: ['copy']
+      },
+      icons: {
+        files: ['<%= config.app %>/icons/**/*'],
         tasks: ['copy']
       },
       images: {
@@ -150,8 +157,8 @@ module.exports = function(grunt) {
         tasks: ['browserify']
       },
       styles: {
-        files: ['<%= config.app %>/styles/*.less'],
-        tasks: ['less']
+        files: ['<%= config.app %>/styles/*.scss'],
+        tasks: ['sass']
       },
       gruntfile: {
         files: ['Gruntfile.js', 'package.json']
@@ -164,7 +171,7 @@ module.exports = function(grunt) {
       'eslint',
       'clean',
       'copy',
-      'less',
+      'sass',
       'browserify',
       'connect',
       'watch'

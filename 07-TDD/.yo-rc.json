@@ -1,0 +1,14 @@
+{
+  "generator-04-generator": {
+    "name": "TDD",
+    "description": "Testing Tdd",
+    "title": "Testing TDD",
+    "author": "Ryan Wels",
+    "license": "MIT",
+    "main": "app/index.html",
+    "engine": [
+      "^5.0.0",
+      "^3.0.0"
+    ]
+  }
+}

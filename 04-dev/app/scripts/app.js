@@ -6,7 +6,7 @@ import fetch from 'isomorphic-fetch'
 
 const $content = $('#content')
 
-page('/home', function() {
+page('*', function() {
   fetch('http://ergast.com/api/f1/drivers.json')
     .then(response => {
       return response.json()
@@ -18,6 +18,12 @@ page('/home', function() {
 
     })
 })
+
+page('/', '/home')
+page('/home', pages.home)
+
+page('/drivers', pages.drivers)
+
 page('*', function() {
   console.log('not found')
 })
