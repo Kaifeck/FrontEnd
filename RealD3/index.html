@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="scripts/d3.min.js" charset="utf-8"></script>
+</head>
+<body>
+    <div id="pieChart"></div>
+</body>
+<script>
+    const pieSelector = document.getElementById("pieChart");
+    const randData = randomData();
+    function randomData() {
+        var arry = [];
+        const numberOfData = Math.floor(Math.random()*10+4);
+        for (i = 0; i < numberOfData; i++)
+        {
+            arry.push(Math.floor(Math.random()*15))
+        }
+        return arry;
+    }
+    const radius = 300;
+    const width = 900;
+    const height = 850;
+
+    var color = d3.scale.linear()
+            .domain([0, d3.mean(randData), d3.max(randData)])
+            .range(["red", "yellow", "green"]);
+
+    const canvas = d3.select("#pieChart")
+            .append("svg")
+            .attr("width", width)
+            .attr("height", height);
+
+    var group = canvas.append("g")
+            .attr("transform", "translate(300,300)");
+
+    var arc = d3.svg.arc()
+            .innerRadius(0)
+            .outerRadius(radius);
+
+    var pie = d3.layout.pie()
+            .value(function(d) {return d;});
+
+    var arcs = group.selectAll(".arc")
+            .data(pie(randData))
+            .enter()
+            .append("g")
+            .attr("class", "arc");
+
+    arcs.append("path")
+            .attr("d", arc)
+            .attr("fill", function(d) {
+                return color(d.data);
+            });
+    arcs.append("text")
+            .attr("transform", function(d) {
+                return "translate(" + arc.centroid(d) + ")"
+            })
+            .text(function(d) {
+                return d.data;
+            })
+
+</script>
+</html>
