@@ -2,8 +2,7 @@ import $ from 'jquery'
 import page from 'page'
 import fetch from 'isomorphic-fetch'
 import url from 'url'
-import config from '../config'
-import tplHomo from '../templates/index.hbs'
+import tplIndex from '../templates/index.hbs'
 import tplConstructors from '../templates/constructors.hbs'
 import tplConstructor from '../templates/constructor.hbs'
 import tplDrivers from '../templates/drivers.hbs'
@@ -20,7 +19,7 @@ const apiUrl = 'http://ergast.com/api/f1';
 let globalError;
 
 export function index() {
-    content.html(tplHomo())
+    content.html(tplIndex())
 }
 
 export function constructors(ctx) {
