@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+
+
+        #barChart rect {
+            fill: steelblue;
+        }
+
+
+
+    </style>
+    <script src="scripts/d3.min.js" charset="utf-8"></script>
+</head>
+<body>
+    <div id="pieChart"></div><br>
+    <div id="barChart"></div>
+</body>
+<script>
+    drawPie();
+    drawBar();
+    function drawPie() {
+        const pieSelector = document.getElementById("pieChart");
+        const randData = randomData();
+
+        const radius = 300;
+        const width = 900;
+        const height = 850;
+
+        var color = d3.scale.linear()
+                .domain([0, d3.mean(randData), d3.max(randData)])
+                .range(["red", "yellow", "green"]);
+
+        const canvas = d3.select("#pieChart")
+                .append("svg")
+                .attr("width", width)
+                .attr("height", height);
+
+        var group = canvas.append("g")
+                .attr("transform", "translate(300,300)");
+
+        var arc = d3.svg.arc()
+                .innerRadius(0)
+                .outerRadius(radius);
+
+        var pie = d3.layout.pie()
+                .value(function (d) {
+                    return d;
+                });
+
+        var arcs = group.selectAll(".arc")
+                .data(pie(randData))
+                .enter()
+                .append("g")
+                .attr("class", "arc");
+
+        arcs.append("path")
+                .attr("d", arc)
+                .attr("fill", function (d) {
+                    return color(d.data);
+                });
+
+        arcs.append("text")
+                .attr("transform", function (d) {
+                    return "translate(" + arc.centroid(d) + ")"
+                })
+                .text(function (d) {
+                    return d.data;
+                })
+    }
+    function drawBar() {
+        const width = 600;
+        const height = 200;
+        const data = randomData();
+        var svg = d3.select("#barChart")
+                .append("svg")
+                .attr("width", width)
+                .attr("height", height);
+        var bars = svg.selectAll("rect")
+                .data(data)
+                .enter()
+                .append("rect")
+                .attr("x", function(d, i){
+                    return i*(width/data.length)
+                })
+                .attr("y", function(d){
+                    return height-d*10
+                })
+                .attr("width", function(){
+                    return width/data.length - 1
+                })
+                .attr("height", function(d){
+                    return d*10+1
+                })
+        var text = svg.selectAll("text")
+                .data(data)
+                .enter()
+                .append("text")
+                .text(function(d){
+                    return d;
+                })
+                .attr("x", function(d,i){
+                    return i * (width / data.length) + (width / data.length)/2 - 3
+                })
+                .attr("y", function(d,i){
+                    return height - (d * 10) + 20
+                })
+                .attr("font-family", "sans-serif")
+                .attr("font-size", "20px")
+                .attr("fill", "white");
+
+
+    }
+    function randomData() {
+        var arry = [];
+        const numberOfData = Math.floor(Math.random() * 10 + 4);
+        for (i = 0; i < numberOfData; i++) {
+            arry.push(Math.floor(Math.random() * 15))
+        }
+        return arry;
+    }
+</script>
+</html>
